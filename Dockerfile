@@ -16,17 +16,17 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Download and extract WSO2 API Manager
 RUN wget -q https://github.com/wso2/product-apim/releases/download/v4.4.0-m2/wso2am-4.4.0-m2.zip \
-    && unzip -q wso2am-4.4.0.zip -d /opt \
-    && rm wso2am-4.4.0.zip
+    && unzip -q wso2am-4.4.0-m2.zip -d /opt \
+    && rm wso2am-4.4.0-m2.zip
 
 # Set the working directory
-WORKDIR /opt/wso2am-4.4.0
+WORKDIR /opt/wso2am-4.4.0-m2
 
 # Copy any custom configurations
-COPY configs/ /opt/wso2am-4.4.0/repository/conf/
+COPY configs/ /opt/wso2am-4.4.0-m2/repository/conf/
 
 # Expose ports
 EXPOSE 9443 8243 8280
 
 # Start WSO2 API Manager
-CMD ["sh", "-c", "/opt/wso2am-4.4.0/bin/api-manager.sh"]
+CMD ["sh", "-c", "/opt/wso2am-4.4.0-m2/bin/api-manager.sh"]
