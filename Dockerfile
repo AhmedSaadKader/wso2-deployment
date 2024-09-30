@@ -25,8 +25,10 @@ WORKDIR /opt/wso2am-4.4.0-m2
 # Copy any custom configurations
 COPY configs/ /opt/wso2am-4.4.0-m2/repository/conf/
 
-RUN sed -i 's#<HostName>localhost</HostName>#<HostName>wso2-deployment-production.up.railway.app</HostName>#g' /opt/wso2am-4.4.0-m2/repository/conf/carbon.xml && \
-    sed -i 's#<MgtHostName>localhost</MgtHostName>#<MgtHostName>wso2-deployment-production.up.railway.app</MgtHostName>#g' /opt/wso2am-4.4.0-m2/repository/conf/carbon.xml
+# Update configuration to use 0.0.0.0 and PORT environment variable
+RUN sed -i 's#<HostName>localhost</HostName>#<HostName>0.0.0.0</HostName>#g' /opt/wso2am-4.4.0-m2/repository/conf/carbon.xml && \
+    sed -i 's#<MgtHostName>localhost</MgtHostName>#<MgtHostName>0.0.0.0</MgtHostName>#g' /opt/wso2am-4.4.0-m2/repository/conf/carbon.xml && \
+    sed -i 's#<parameter name="port">9443</parameter>#<parameter name="port">${PORT}</parameter>#g' /opt/wso2am-4.4.0-m2/repository/conf/axis2/axis2.xml
 
 # Expose ports
 EXPOSE 9443 8243 8280
