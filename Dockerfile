@@ -25,6 +25,9 @@ WORKDIR /opt/wso2am-4.4.0-m2
 # Copy any custom configurations
 COPY configs/ /opt/wso2am-4.4.0-m2/repository/conf/
 
+RUN sed -i 's#<HostName>localhost</HostName>#<HostName>wso2-deployment-production.up.railway.app</HostName>#g' /opt/wso2am-4.4.0-m2/repository/conf/carbon.xml && \
+    sed -i 's#<MgtHostName>localhost</MgtHostName>#<MgtHostName>wso2-deployment-production.up.railway.app</MgtHostName>#g' /opt/wso2am-4.4.0-m2/repository/conf/carbon.xml
+
 # Expose ports
 EXPOSE 9443 8243 8280
 
